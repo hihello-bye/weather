@@ -10,6 +10,10 @@ async function fetchWeatherData(location) {
 
         const data = await response.json();
         console.log(data);
+
+        const processedWeatherData = processWeatherData(data);
+        updateDisplay(processedWeatherData);
+
     } catch (error) {
         console.log('Error fetching data');
     }
@@ -36,4 +40,33 @@ function processWeatherData(data) {
     }
 }
 
-fetchWeatherData();
+function updateDisplay(weather) {
+    if (!weather) {
+        alert('Error fetching data, please try again');
+        return;
+    }
+
+    document.getElementById('cityName').textContent = `7 Day Weather Forecast for ${weather.cityName}`;
+
+    const weatherContainer = document.getElementById('weekWeather');
+    weatherContainer.innerHTML = '';
+
+    weather.weatherData.forEach(day => {
+        const weatherDiv = document.createElement('div');
+        weatherDiv.innerHTML = `
+        <h3>${day.date}</h3>
+        <p>High: ${day.tempMax}, Low: ${day.tempMin}<p>
+        <p>Current Temperature: ${day.temp}<p>
+        <p>Humidity: ${day.humidity}<p>
+        <p>Precipitation: ${day.precip}<p>
+        <p>Chance of Rain: ${day.precipProbability}<p>
+        <p>Snow: ${day.snow}<p>
+        <p>Wind Speed: ${day.windSpeed}<p>
+        `;
+
+        weatherContainer.appendChild(weatherDiv);
+    })
+
+}
+
+fetchWeatherData('london');
