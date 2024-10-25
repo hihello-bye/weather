@@ -11,6 +11,9 @@ function getWeather() {
     }
 }
 
+let currentDayIndex= 0;
+let weeklyWeatherData = [];
+
 async function fetchWeatherData(location) {
     const weatherKey = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Chumidity%2Cprecip%2Cprecipprob%2Csnow%2Cwindspeed&key=6XFU6XDGM3UREAQCXGA8UAKQZ&contentType=json';
 
@@ -26,6 +29,10 @@ async function fetchWeatherData(location) {
 
         const processedWeatherData = processWeatherData(data);
         updateDisplay(processedWeatherData);
+
+        weeklyWeatherData = processedWeatherData.weatherData;
+        currentDayIndex = 0;
+        updateDisplay(processedWeatherData.cityName, currentDayIndex);
 
     } catch (error) {
         console.log('Error fetching data');
