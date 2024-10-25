@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('prevDay').addEventListener('click', showPrevDay);
     document.getElementById('nextDay').addEventListener('click', showNextDay);
 })
+
 function getWeather() {
     const city = document.getElementById('cityInput').value.trim();
 
@@ -82,13 +83,13 @@ function updateDisplay(cityName, dayIndex) {
     const dayWeatherContainer = document.getElementById('dailyWeather');
     dayWeatherContainer.innerHTML = `
         <h3>${dayWeather.date}</h3>
-        <p>High: ${dayWeather.tempMax}, Low: ${dayWeather.tempMin}<p>
-        <p>Current Temperature: ${dayWeather.temp}<p>
-        <p>Humidity: ${dayWeather.humidity}<p>
-        <p>Precipitation: ${dayWeather.precip}<p>
-        <p>Chance of Rain: ${dayWeather.precipProbability}<p>
-        <p>Snow: ${dayWeather.snow}<p>
-        <p>Wind Speed: ${dayWeather.windSpeed}<p>
+        <p>High: ${dayWeather.tempMax}, Low: ${dayWeather.tempMin}</p>
+        <p>Current Temperature: ${dayWeather.temp}</p>
+        <p>Humidity: ${dayWeather.humidity}</p>
+        <p>Precipitation: ${dayWeather.precip}</p>
+        <p>Chance of Rain: ${dayWeather.precipProbability}</p>
+        <p>Snow: ${dayWeather.snow}</p>
+        <p>Wind Speed: ${dayWeather.windSpeed}</p>
         `;
 
         document.getElementById('prevDay').style.display = dayIndex > 0 ? 'inline' : 'none';
