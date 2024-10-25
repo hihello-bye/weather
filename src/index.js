@@ -89,7 +89,7 @@ function updateDisplay(cityName, dayIndex) {
         <p>Wind Speed: ${dayWeather.windSpeed}<p>
         `;
 
-        dayWeatherContainer.appendChild(weatherDiv);
+       
    
 
     document.getElementById('weatherDisplay').style.display = 'block';
