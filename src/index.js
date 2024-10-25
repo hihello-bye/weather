@@ -19,7 +19,7 @@ let weeklyWeatherData = [];
 
 async function fetchWeatherData(location) {
     const weatherKey = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Chumidity%2Cprecip%2Cprecipprob%2Csnow%2Cwindspeed&key=6XFU6XDGM3UREAQCXGA8UAKQZ&contentType=json`;
-
+    
     try{
         const response = await fetch(weatherKey);
 
@@ -46,7 +46,7 @@ async function fetchWeatherData(location) {
 }
 
 function processWeatherData(data) {
-    if (!data || !data.days || data.length < 7) return null;
+    if (!data || !data.days || data.days.length < 7) return null;
 
     const weatherData = data.days.slice(0, 7).map(day => ({
         date: day.datetime,
