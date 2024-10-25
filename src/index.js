@@ -15,4 +15,25 @@ async function fetchWeatherData(location) {
     }
 }
 
+function processWeatherData(data) {
+    if (!data || !data.days || data.length < 7) return null;
+
+    const weatherData = data.days.slice(0, 7).map(day => ({
+        date: day.datetime,
+        tempMax: day.tempmax,
+        tempMin: day.tempmin,
+        currentTemp: day.temp,
+        humidity: day.humidity,
+        precipitation: day.precip,
+        precipProbability: day.precipprob,
+        snow: day.snow,
+        windSpeed: day.windspeed
+    }))
+
+    return {
+        cityName: data.resolvedAddress,
+        weatherData: weatherData
+    }
+}
+
 fetchWeatherData();
