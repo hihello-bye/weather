@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('weatherBtn').addEventListener('click', getWeather);
+    document.getElementById('prevDay').addEventListener('click', showPrevDay);
+    document.getElementById('nextDay').addEventListener('click', showNextDay);
 })
 function getWeather() {
     const city = document.getElementById('cityInput').value.trim();
@@ -89,8 +91,22 @@ function updateDisplay(cityName, dayIndex) {
         <p>Wind Speed: ${dayWeather.windSpeed}<p>
         `;
 
-       
-   
+        document.getElementById('prevDay').style.display = dayIndex > 0 ? 'inline' : 'none';
+        document.getElementById('nextDay').style.display = dayIndex < weeklyWeatherData.length - 1 ? 'inline' : 'none';
 
     document.getElementById('weatherDisplay').style.display = 'block';
+}
+
+function showPrevDay() {
+    if (currentDayIndex > 0) {
+        currentDayIndex--;
+        updateDisplay(document.getElementById('cityName').textContent, currentDayIndex);
+    }
+}
+
+function showNextDay() {
+    if (currentDayIndex < weeklyWeatherData.length -1) {
+        currentDayIndex++;
+        updateDisplay(document.getElementById('cityName').textContent, currentDayIndex);
+    }
 }
