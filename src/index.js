@@ -15,7 +15,7 @@ let currentDayIndex= 0;
 let weeklyWeatherData = [];
 
 async function fetchWeatherData(location) {
-    const weatherKey = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Chumidity%2Cprecip%2Cprecipprob%2Csnow%2Cwindspeed&key=6XFU6XDGM3UREAQCXGA8UAKQZ&contentType=json';
+    const weatherKey = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Chumidity%2Cprecip%2Cprecipprob%2Csnow%2Cwindspeed&key=6XFU6XDGM3UREAQCXGA8UAKQZ&contentType=json`;
 
     try{
         const response = await fetch(weatherKey);
@@ -28,7 +28,10 @@ async function fetchWeatherData(location) {
         console.log(data);
 
         const processedWeatherData = processWeatherData(data);
-        updateDisplay(processedWeatherData);
+        if (!processedWeatherData) {
+            console.log('Error processing data');
+            return;
+        }
 
         weeklyWeatherData = processedWeatherData.weatherData;
         currentDayIndex = 0;
@@ -60,32 +63,34 @@ function processWeatherData(data) {
     }
 }
 
-function updateDisplay(weather) {
-    if (!weather) {
-        alert('Error fetching data, please try again');
+function updateDisplay(cityName, dayIndex) {
+    if (!weeklyWeatherData || weeklyWeatherData.length === 0) {
+        alert('No weekly data available');
         return;
     }
 
-    document.getElementById('cityName').textContent = `7 Day Weather Forecast for ${weather.cityName}`;
+    const dayWeather = weeklyWeatherData[dayIndex];
+    if (!dayWeather) {
+        console.log('No data available for selected day');
+        return;
+    }
 
-    const weatherContainer = document.getElementById('weekWeather');
-    weatherContainer.innerHTML = '';
+    document.getElementById('cityName').textContent = `Weather Forecast for ${cityName}`;
 
-    weather.weatherData.forEach(day => {
-        const weatherDiv = document.createElement('div');
-        weatherDiv.innerHTML = `
-        <h3>${day.date}</h3>
-        <p>High: ${day.tempMax}, Low: ${day.tempMin}<p>
-        <p>Current Temperature: ${day.temp}<p>
-        <p>Humidity: ${day.humidity}<p>
-        <p>Precipitation: ${day.precip}<p>
-        <p>Chance of Rain: ${day.precipProbability}<p>
-        <p>Snow: ${day.snow}<p>
-        <p>Wind Speed: ${day.windSpeed}<p>
+    const dayWeatherContainer = document.getElementById('dailyWeather');
+    dayWeatherContainer.innerHTML = `
+        <h3>${dayWeather.date}</h3>
+        <p>High: ${dayWeather.tempMax}, Low: ${dayWeather.tempMin}<p>
+        <p>Current Temperature: ${dayWeather.temp}<p>
+        <p>Humidity: ${dayWeather.humidity}<p>
+        <p>Precipitation: ${dayWeather.precip}<p>
+        <p>Chance of Rain: ${dayWeather.precipProbability}<p>
+        <p>Snow: ${dayWeather.snow}<p>
+        <p>Wind Speed: ${dayWeather.windSpeed}<p>
         `;
 
-        weatherContainer.appendChild(weatherDiv);
-    })
+        dayWeatherContainer.appendChild(weatherDiv);
+   
 
     document.getElementById('weatherDisplay').style.display = 'block';
 }
