@@ -1,3 +1,14 @@
+
+function getWeather() {
+    const city = document.getElementById('cityInput').value.trim();
+
+    if (city) {
+        fetchWeatherData(city);
+    } else {
+        alert('Please enter a city');
+    }
+}
+
 async function fetchWeatherData(location) {
     const weatherKey = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Chumidity%2Cprecip%2Cprecipprob%2Csnow%2Cwindspeed&key=6XFU6XDGM3UREAQCXGA8UAKQZ&contentType=json';
 
@@ -68,14 +79,4 @@ function updateDisplay(weather) {
     })
 
     document.getElementById('weatherDisplay').style.display = 'block';
-}
-
-function getWeather() {
-    const city = document.getElementById('cityInput').value.trim();
-
-    if (city) {
-        fetchWeatherData(city);
-    } else {
-        alert('Please enter a city');
-    }
 }
