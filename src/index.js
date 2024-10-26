@@ -54,7 +54,7 @@ function processWeatherData(data) {
         tempMin: day.tempmin,
         currentTemp: day.temp,
         humidity: day.humidity,
-        precipitation: day.precip,
+        precip: day.precip,
         precipProbability: day.precipprob,
         snow: day.snow,
         windSpeed: day.windspeed
