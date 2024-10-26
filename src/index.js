@@ -6,25 +6,43 @@ import umbrellaIcon from './img/umbrella.png';
 import snowIcon from './img/snow.png';
 import windIcon from './img/wind.png';
 import sunIcon from './img/sun.png';
+import sunriseIcon from './img/sunrise.png';
+import sunsetIcon from './img/sunset.png';
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('weatherBtn').addEventListener('click', getWeather);
+    document.getElementById('weatherBtn').addEventListener('click', getData);
     document.getElementById('prevDay').addEventListener('click', showPrevDay);
     document.getElementById('nextDay').addEventListener('click', showNextDay);
 })
 
-function getWeather() {
-    const city = document.getElementById('cityInput').value.trim();
-
-    if (city) {
-        fetchWeatherData(city);
-    } else {
-        alert('Please enter a city');
-    }
-}
-
 let currentDayIndex= 0;
 let weeklyWeatherData = [];
+
+
+async function getData() {
+    const city = document.getElementById('cityInput').value.trim();
+
+    if (!city) {
+        alert('Please enter a city');
+    }
+
+    const weatherData = await fetchWeatherData(city);
+    const processedWeatherData =processWeatherData(weatherData);
+
+    if (processedWeatherData) {
+        weeklyWeatherData = processedWeatherData.weatherData;
+        currentDayIndex = 0;
+        updateDisplay(processedWeatherData.cityName, currentDayIndex);
+    }
+
+    const solarData = await fetchSolarData(city);
+    const processedSolarData = processSolarData(solarData);
+
+    if (processedSolarData) {
+        updateSolarDisplay(processWeatherData);
+    }
+
+}
 
 async function fetchWeatherData(location) {
     const weatherKey = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin%2Ctemp%2Chumidity%2Cprecip%2Cprecipprob%2Csnow%2Cwindspeed&key=6XFU6XDGM3UREAQCXGA8UAKQZ&contentType=json`;
@@ -37,25 +55,17 @@ async function fetchWeatherData(location) {
         }
 
         const data = await response.json();
-        console.log(data);
-
-        const processedWeatherData = processWeatherData(data);
-        if (!processedWeatherData) {
-            console.log('Error processing data');
-            return;
-        }
-
-        weeklyWeatherData = processedWeatherData.weatherData;
-        currentDayIndex = 0;
-        updateDisplay(processedWeatherData.cityName, currentDayIndex);
+        return data;
 
     } catch (error) {
-        console.log('Error fetching data');
+        console.log('Error weather fetching data');
     }
 }
 
 function processWeatherData(data) {
-    if (!data || !data.days || data.days.length < 7) return null;
+    if (!data || !data.days || data.days.length < 7) {
+        return null;
+    }
 
     const weatherData = data.days.slice(0, 7).map(day => ({
         date: day.datetime,
@@ -75,20 +85,51 @@ function processWeatherData(data) {
     }
 }
 
+async function fetchSolarData(location) {
+    const solarKey = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&elements=datetime%2Csunrise%2Csunset&key=6XFU6XDGM3UREAQCXGA8UAKQZ&contentType=json`;
+
+    try { 
+        const response = await fetch(solarKey);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+
+        const solarData = await response.json();
+        console.log(solarData);
+
+    } catch (error) {
+        console.log('Error solar fetching data');
+    }
+}
+
+function processSolarData(solarData) {
+    if (!solarData || !solarData.sunrise || !solarData.sunset) {
+        return null;
+    }
+
+    const sunriseTime = new Date(solarData.sunrise);
+    const sunsetTime = new Date(solarData.sunset);
+
+    const options = { hour: '2-digit', minute: '2-digit' };
+    const sunriseLocalTime = sunriseTime.toLocaleTimeString([], options);
+    const sunsetLocalTime = sunsetTime.toLocaleTimeString([], options);
+
+    return {
+        sunrise: sunriseLocalTime,
+        sunset: sunsetLocalTime
+    }
+}
+
 function updateDisplay(cityName, dayIndex) {
     if (!weeklyWeatherData || weeklyWeatherData.length === 0) {
         alert('No weekly data available');
         return;
     }
 
-    const dayWeather = weeklyWeatherData[dayIndex];
-    if (!dayWeather) {
-        console.log('No data available for selected day');
-        return;
-    }
-
     document.getElementById('cityName').textContent = `${cityName}`;
 
+    const dayWeather = weeklyWeatherData[dayIndex];
     const dayWeatherContainer = document.getElementById('dailyWeather');
     dayWeatherContainer.innerHTML = `
         <h3>${dayWeather.date}</h3>
@@ -120,6 +161,20 @@ function updateDisplay(cityName, dayIndex) {
         </div>
         </div>
         `;
+
+        if (solarData) {
+            const solarContainer = document.getElementById('solarData');
+            solarContainer.innerHTML = `
+            <div class='solarItem>
+            <img src='${sunriseIcon}' alt='Sunrise Icon' class='solarIcon'>
+            <p>Sunrise: ${solarData.sunrise}</p>
+            </div>
+            <div class='solarItem>
+            <img src='${sunsetIcon}' alt='Sunset Icon' class='solarIcon'>
+            <p>Sunset: ${solarData.sunset}</p>
+            </div>
+            `;
+        }
 
         document.getElementById('prevDay').style.display = dayIndex > 0 ? 'inline' : 'none';
         document.getElementById('nextDay').style.display = dayIndex < weeklyWeatherData.length - 1 ? 'inline' : 'none';
