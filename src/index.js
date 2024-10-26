@@ -1,3 +1,5 @@
+import "./style.css";
+
 import humidityIcon from './img/humid.png';
 import rainIcon from './img/rain.png';
 import umbrellaIcon from './img/umbrella.png';
