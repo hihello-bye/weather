@@ -83,13 +83,13 @@ function updateDisplay(cityName, dayIndex) {
     const dayWeatherContainer = document.getElementById('dailyWeather');
     dayWeatherContainer.innerHTML = `
         <h3>${dayWeather.date}</h3>
-        <p>High: ${dayWeather.tempMax}, Low: ${dayWeather.tempMin}</p>
-        <p>Current Temperature: ${dayWeather.currentTemp}</p>
-        <p>Humidity: ${dayWeather.humidity}</p>
-        <p>Precipitation: ${dayWeather.precip}</p>
-        <p>Chance of Rain: ${dayWeather.precipProbability}</p>
-        <p>Snow: ${dayWeather.snow}</p>
-        <p>Wind Speed: ${dayWeather.windSpeed}</p>
+        <p>High: ${dayWeather.tempMax}ºF, Low: ${dayWeather.tempMin}ºF</p>
+        <p>Current Temperature: ${dayWeather.currentTemp}ºF</p>
+        <p>Humidity: ${dayWeather.humidity}%</p>
+        <p>Precipitation: ${dayWeather.precip} inches</p>
+        <p>Chance of Rain: ${dayWeather.precipProbability}%</p>
+        <p>Snow: ${dayWeather.snow} inches</p>
+        <p>Wind Speed: ${dayWeather.windSpeed} mph</p>
         `;
 
         document.getElementById('prevDay').style.display = dayIndex > 0 ? 'inline' : 'none';
