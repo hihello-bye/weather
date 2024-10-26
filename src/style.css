@@ -9,6 +9,12 @@ body {
     text-align: center;
 }
 
+h1 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
 .weatherItems {
     display: flex;
     justify-content: space-around;
