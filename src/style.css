@@ -22,5 +22,21 @@ body {
     align-items: center;
     text-align: center;
     padding: 20px;
+    font-size: 0.9rem;
 }
 
+.weatherIcon {
+    width: 40px;
+    height: 40px;
+}
+
+.weatherMain {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.mainIcon {
+    width: 60px;
+    height: 60px;
+}
