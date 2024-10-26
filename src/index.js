@@ -2,7 +2,8 @@ import humidityIcon from './img/humid.png';
 import rainIcon from './img/rain.png';
 import umbrellaIcon from './img/umbrella.png';
 import snowIcon from './img/snow.png';
-import windIcon from './img/wind.png'
+import windIcon from './img/wind.png';
+import sunIcon from './img/sun.png';
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('weatherBtn').addEventListener('click', getWeather);
@@ -89,8 +90,11 @@ function updateDisplay(cityName, dayIndex) {
     const dayWeatherContainer = document.getElementById('dailyWeather');
     dayWeatherContainer.innerHTML = `
         <h3>${dayWeather.date}</h3>
-        <p>High: ${dayWeather.tempMax}ºF, Low: ${dayWeather.tempMin}ºF</p>
+        <div class='weatherMain'>
         <p>Current Temperature: ${dayWeather.currentTemp}ºF</p>
+        <img src='${sunIcon}' alt='Temperature Icon' class='mainIcon'>
+        <p>High: ${dayWeather.tempMax}ºF, Low: ${dayWeather.tempMin}ºF</p>
+        </div>
         <div class='weatherItem'>
         <img src='${humidityIcon}' alt='Humidity Icon' class='weatherIcon'>
         <p>Humidity: ${dayWeather.humidity}%</p>
