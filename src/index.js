@@ -78,7 +78,7 @@ function updateDisplay(cityName, dayIndex) {
         return;
     }
 
-    document.getElementById('cityName').textContent = `Weather Forecast for ${cityName}`;
+    document.getElementById('cityName').textContent = `${cityName}`;
 
     const dayWeatherContainer = document.getElementById('dailyWeather');
     dayWeatherContainer.innerHTML = `
