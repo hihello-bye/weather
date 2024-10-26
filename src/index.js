@@ -97,6 +97,7 @@ function updateDisplay(cityName, dayIndex) {
         <img src='${sunIcon}' alt='Temperature Icon' class='mainIcon'>
         <p>High: ${dayWeather.tempMax}ºF, Low: ${dayWeather.tempMin}ºF</p>
         </div>
+        <div class='weatherItems>
         <div class='weatherItem'>
         <img src='${humidityIcon}' alt='Humidity Icon' class='weatherIcon'>
         <p>Humidity: ${dayWeather.humidity}%</p>
@@ -116,6 +117,7 @@ function updateDisplay(cityName, dayIndex) {
         <div class='weatherItem'>
         <img src='${windIcon}' alt='Wind Icon' class='weatherIcon'>
         <p>Wind Speed: ${dayWeather.windSpeed} mph</p>
+        </div>
         </div>
         `;
 
