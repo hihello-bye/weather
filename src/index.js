@@ -28,19 +28,15 @@ async function getData() {
 
     const weatherData = await fetchWeatherData(city);
     const processedWeatherData =processWeatherData(weatherData);
+    const solarData = await fetchSolarData(city);
+    const processedSolarData = processSolarData(solarData);
 
     if (processedWeatherData) {
         weeklyWeatherData = processedWeatherData.weatherData;
         currentDayIndex = 0;
-        updateDisplay(processedWeatherData.cityName, currentDayIndex);
+        updateDisplay(processedWeatherData.cityName, currentDayIndex, processedSolarData);
     }
 
-    const solarData = await fetchSolarData(city);
-    const processedSolarData = processSolarData(solarData);
-
-    if (processedSolarData) {
-        updateSolarDisplay(processWeatherData);
-    }
 
 }
 
@@ -97,6 +93,8 @@ async function fetchSolarData(location) {
 
         const solarData = await response.json();
         console.log(solarData);
+        return solarData;
+        
 
     } catch (error) {
         console.log('Error solar fetching data');
@@ -104,12 +102,16 @@ async function fetchSolarData(location) {
 }
 
 function processSolarData(solarData) {
-    if (!solarData || !solarData.sunrise || !solarData.sunset) {
+    if (!solarData || !solarData.days || solarData.days.length === 0) {
+        console.error('Invalid solar data structure', solarData);
         return null;
     }
 
-    const sunriseTime = new Date(solarData.sunrise);
-    const sunsetTime = new Date(solarData.sunset);
+    const date = solarData.days[0].datetime;
+    const sunriseRaw = solarData.days[0].sunrise;
+    const sunsetRaw = solarData.days[0].sunset;
+    const sunriseTime = new Date(`${date}T${sunriseRaw}`);
+    const sunsetTime = new Date(`${date}T${sunsetRaw}`);
 
     const options = { hour: '2-digit', minute: '2-digit' };
     const sunriseLocalTime = sunriseTime.toLocaleTimeString([], options);
@@ -118,10 +120,12 @@ function processSolarData(solarData) {
     return {
         sunrise: sunriseLocalTime,
         sunset: sunsetLocalTime
-    }
+    };
 }
 
-function updateDisplay(cityName, dayIndex) {
+
+
+function updateDisplay(cityName, dayIndex, solarData) {
     if (!weeklyWeatherData || weeklyWeatherData.length === 0) {
         alert('No weekly data available');
         return;
