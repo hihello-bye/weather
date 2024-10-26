@@ -86,23 +86,23 @@ function updateDisplay(cityName, dayIndex) {
         <p>High: ${dayWeather.tempMax}ºF, Low: ${dayWeather.tempMin}ºF</p>
         <p>Current Temperature: ${dayWeather.currentTemp}ºF</p>
         <div class='weatherItem'>
-        <img src='img/icons8-moisture-48.png' alt-'Humidity Icon' class='weatherIcon'>
+        <img src='./img/humid.png' alt='Humidity Icon' class='weatherIcon'>
         <p>Humidity: ${dayWeather.humidity}%</p>
         </div>
         <div class='weatherItem'>
-        <img src='img/icons8-heavy-rain-48.png' alt-'Precipitation Icon' class='weatherIcon'>
+        <img src='./img/rain.png' alt='Precipitation Icon' class='weatherIcon'>
         <p>Precipitation: ${dayWeather.precip} inches</p>
         </div>
         <div class='weatherItem'>
-        <img src='img/icons8-umbrella-48.png' alt-'Precipitation Probability Icon' class='weatherIcon'>
+        <img src='./img/umbrella.png' alt='Precipitation Probability Icon' class='weatherIcon'>
         <p>Chance of Rain: ${dayWeather.precipProbability}%</p>
         </div>
         <div class='weatherItem'>
-        <img src='img/icons8-snow-storm-48.png' alt-'Snow Icon' class='weatherIcon'>
+        <img src=./img/snow.png' alt='Snow Icon' class='weatherIcon'>
         <p>Snow: ${dayWeather.snow} inches</p>
         </div>
         <div class='weatherItem'>
-        <img src='img/icons8-wind-48.png' alt-'Wind Icon' class='weatherIcon'>
+        <img src='./img/wind.png' alt='Wind Icon' class='weatherIcon'>
         <p>Wind Speed: ${dayWeather.windSpeed} mph</p>
         </div>
         `;
