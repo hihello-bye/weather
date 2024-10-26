@@ -85,11 +85,26 @@ function updateDisplay(cityName, dayIndex) {
         <h3>${dayWeather.date}</h3>
         <p>High: ${dayWeather.tempMax}ºF, Low: ${dayWeather.tempMin}ºF</p>
         <p>Current Temperature: ${dayWeather.currentTemp}ºF</p>
+        <div class='weatherItem'>
+        <img src='img/icons8-moisture-48.png' alt-'Humidity Icon' class='weatherIcon'>
         <p>Humidity: ${dayWeather.humidity}%</p>
+        </div>
+        <div class='weatherItem'>
+        <img src='img/icons8-heavy-rain-48.png' alt-'Precipitation Icon' class='weatherIcon'>
         <p>Precipitation: ${dayWeather.precip} inches</p>
+        </div>
+        <div class='weatherItem'>
+        <img src='img/icons8-umbrella-48.png' alt-'Precipitation Probability Icon' class='weatherIcon'>
         <p>Chance of Rain: ${dayWeather.precipProbability}%</p>
+        </div>
+        <div class='weatherItem'>
+        <img src='img/icons8-snow-storm-48.png' alt-'Snow Icon' class='weatherIcon'>
         <p>Snow: ${dayWeather.snow} inches</p>
+        </div>
+        <div class='weatherItem'>
+        <img src='img/icons8-wind-48.png' alt-'Wind Icon' class='weatherIcon'>
         <p>Wind Speed: ${dayWeather.windSpeed} mph</p>
+        </div>
         `;
 
         document.getElementById('prevDay').style.display = dayIndex > 0 ? 'inline' : 'none';
