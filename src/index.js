@@ -84,7 +84,7 @@ function updateDisplay(cityName, dayIndex) {
     dayWeatherContainer.innerHTML = `
         <h3>${dayWeather.date}</h3>
         <p>High: ${dayWeather.tempMax}, Low: ${dayWeather.tempMin}</p>
-        <p>Current Temperature: ${dayWeather.temp}</p>
+        <p>Current Temperature: ${dayWeather.currentTemp}</p>
         <p>Humidity: ${dayWeather.humidity}</p>
         <p>Precipitation: ${dayWeather.precip}</p>
         <p>Chance of Rain: ${dayWeather.precipProbability}</p>
