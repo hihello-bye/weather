@@ -1,3 +1,9 @@
+import humidityIcon from './img/humid.png';
+import rainIcon from './img/rain.png';
+import umbrellaIcon from './img/umbrella.png';
+import snowIcon from './img/snow.png';
+import windIcon from './img/wind.png'
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('weatherBtn').addEventListener('click', getWeather);
     document.getElementById('prevDay').addEventListener('click', showPrevDay);
@@ -86,23 +92,23 @@ function updateDisplay(cityName, dayIndex) {
         <p>High: ${dayWeather.tempMax}ºF, Low: ${dayWeather.tempMin}ºF</p>
         <p>Current Temperature: ${dayWeather.currentTemp}ºF</p>
         <div class='weatherItem'>
-        <img src='./img/humid.png' alt='Humidity Icon' class='weatherIcon'>
+        <img src='${humidityIcon}' alt='Humidity Icon' class='weatherIcon'>
         <p>Humidity: ${dayWeather.humidity}%</p>
         </div>
         <div class='weatherItem'>
-        <img src='./img/rain.png' alt='Precipitation Icon' class='weatherIcon'>
+        <img src='${rainIcon}' alt='Precipitation Icon' class='weatherIcon'>
         <p>Precipitation: ${dayWeather.precip} inches</p>
         </div>
         <div class='weatherItem'>
-        <img src='./img/umbrella.png' alt='Precipitation Probability Icon' class='weatherIcon'>
+        <img src='${umbrellaIcon}' alt='Precipitation Probability Icon' class='weatherIcon'>
         <p>Chance of Rain: ${dayWeather.precipProbability}%</p>
         </div>
         <div class='weatherItem'>
-        <img src=./img/snow.png' alt='Snow Icon' class='weatherIcon'>
+        <img src='${snowIcon}' alt='Snow Icon' class='weatherIcon'>
         <p>Snow: ${dayWeather.snow} inches</p>
         </div>
         <div class='weatherItem'>
-        <img src='./img/wind.png' alt='Wind Icon' class='weatherIcon'>
+        <img src='${windIcon}' alt='Wind Icon' class='weatherIcon'>
         <p>Wind Speed: ${dayWeather.windSpeed} mph</p>
         </div>
         `;
