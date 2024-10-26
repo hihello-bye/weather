@@ -8,3 +8,19 @@ body {
     min-height: 100vh;
     text-align: center;
 }
+
+.weatherItems {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.weatherItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+

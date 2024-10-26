@@ -1,4 +1,4 @@
-import "./style.css";
+import './style.css';
 
 import humidityIcon from './img/humid.png';
 import rainIcon from './img/rain.png';
@@ -97,7 +97,7 @@ function updateDisplay(cityName, dayIndex) {
         <img src='${sunIcon}' alt='Temperature Icon' class='mainIcon'>
         <p>High: ${dayWeather.tempMax}ºF, Low: ${dayWeather.tempMin}ºF</p>
         </div>
-        <div class='weatherItems>
+        <div class='weatherItems'>
         <div class='weatherItem'>
         <img src='${humidityIcon}' alt='Humidity Icon' class='weatherIcon'>
         <p>Humidity: ${dayWeather.humidity}%</p>
