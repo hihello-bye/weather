@@ -37,6 +37,11 @@ async function getData() {
     if (processedWeatherData) {
         weeklyWeatherData = processedWeatherData.weatherData;
         currentDayIndex = 0;
+
+        if (processedSolarData && processedSolarData.sunset) {
+            switchBackground(processedSolarData.sunset);
+        }
+
         updateDisplay(processedWeatherData.cityName, currentDayIndex, processedSolarData);
     }
 
@@ -184,8 +189,6 @@ function updateDisplay(cityName, dayIndex, solarData) {
             </div>
             `;
         }
-
-        switchBackground(solarData.sunset);
 
         document.getElementById('prevDay').style.display = dayIndex > 0 ? 'inline' : 'none';
         document.getElementById('nextDay').style.display = dayIndex < weeklyWeatherData.length - 1 ? 'inline' : 'none';
