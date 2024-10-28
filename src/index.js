@@ -9,7 +9,7 @@ import sunIcon from './img/sun.png';
 import sunriseIcon from './img/sunrise.png';
 import sunsetIcon from './img/sunset.png';
 import dayBackground from './img/dayBack.jpg';
-import nightBackground from './img/nightBack.jpg';
+import nightBackground from './img/nightBack2.jpg';
 
 
 document.addEventListener('DOMContentLoaded', () => {
