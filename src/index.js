@@ -8,6 +8,9 @@ import windIcon from './img/wind.png';
 import sunIcon from './img/sun.png';
 import sunriseIcon from './img/sunrise.png';
 import sunsetIcon from './img/sunset.png';
+import dayBackground from './img/dayBack.jpg';
+import nightBackground from './img/nightBack.jpg';
+
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('weatherBtn').addEventListener('click', getData);
@@ -182,6 +185,8 @@ function updateDisplay(cityName, dayIndex, solarData) {
             `;
         }
 
+        switchBackground(solarData.sunset);
+
         document.getElementById('prevDay').style.display = dayIndex > 0 ? 'inline' : 'none';
         document.getElementById('nextDay').style.display = dayIndex < weeklyWeatherData.length - 1 ? 'inline' : 'none';
 
@@ -199,5 +204,24 @@ function showNextDay() {
     if (currentDayIndex < weeklyWeatherData.length -1) {
         currentDayIndex++;
         updateDisplay(document.getElementById('cityName').textContent, currentDayIndex);
+    }
+}
+
+function switchBackground(sunsetTimeString) {
+    const currentTime = new Date();
+
+    const [sunsetHour, sunsetMinute] = sunsetTimeString.split(':').map(Number);
+    const sunsetTime = new Date(currentTime);
+    sunsetTime.setHours(sunsetHour, sunsetMinute, 0);
+
+    console.log('Current Time', currentTime);
+    console.log('Sunset Time', sunsetTime);
+
+    if (currentTime > sunsetTime) {
+        document.body.style.background = '${nightBackground}';
+        console.log('Night Time');
+    } else {
+        document.body.style.background = '${dayBackground}';
+        console.log('Day Time');
     }
 }
