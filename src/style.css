@@ -19,6 +19,12 @@ h1 {
     text-align: center;
 }
 
+#weatherBtn, #prevDay, #nextDay {
+    background-color: #475569;
+    color: white;
+    border-radius: 5px;
+}
+
 .weatherItems {
     display: flex;
     justify-content: space-around;
