@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('weatherBtn').addEventListener('click', getData);
     document.getElementById('prevDay').addEventListener('click', showPrevDay);
     document.getElementById('nextDay').addEventListener('click', showNextDay);
+    
+    document.getElementById('cityInput').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            getData();
+        }
+    });
 })
 
 let currentDayIndex= 0;
