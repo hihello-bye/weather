@@ -169,11 +169,11 @@ function updateDisplay(cityName, dayIndex, solarData) {
         if (solarData) {
             const solarContainer = document.getElementById('solarData');
             solarContainer.innerHTML = `
-            <div class='solarItem>
+            <div class='solarItem'>
             <img src='${sunriseIcon}' alt='Sunrise Icon' class='solarIcon'>
             <p>Sunrise: ${solarData.sunrise}</p>
             </div>
-            <div class='solarItem>
+            <div class='solarItem'>
             <img src='${sunsetIcon}' alt='Sunset Icon' class='solarIcon'>
             <p>Sunset: ${solarData.sunset}</p>
             </div>
