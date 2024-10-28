@@ -221,10 +221,10 @@ function switchBackground(sunsetTimeString) {
     console.log('Sunset Time', sunsetTime);
 
     if (currentTime > sunsetTime) {
-        document.body.style.background = '${nightBackground}';
+        document.body.style.backgroundImage = `url('${nightBackground}')`;
         console.log('Night Time');
     } else {
-        document.body.style.background = '${dayBackground}';
+        document.body.style.backgroundImage = `url('${dayBackground}')`;
         console.log('Day Time');
     }
 }
