@@ -38,8 +38,8 @@ async function getData() {
         weeklyWeatherData = processedWeatherData.weatherData;
         currentDayIndex = 0;
 
-        if (processedSolarData && processedSolarData.sunset) {
-            switchBackground(processedSolarData.sunset);
+        if (processedSolarData && processedWeatherData.timezoneOffset) {
+            switchBackground(processedSolarData.sunset, processedWeatherData.timezoneOffset);
         }
 
         updateDisplay(processedWeatherData.cityName, currentDayIndex, processedSolarData);
@@ -83,9 +83,14 @@ function processWeatherData(data) {
         windSpeed: day.windspeed
     }))
 
+    const timezone = data.timezone;
+    const timezoneOffset = data.tzoffset;
+
     return {
         cityName: data.resolvedAddress,
-        weatherData: weatherData
+        weatherData: weatherData,
+        timezone,
+        timezoneOffset
     }
 }
 
@@ -210,17 +215,18 @@ function showNextDay() {
     }
 }
 
-function switchBackground(sunsetTimeString) {
-    const currentTime = new Date();
+function switchBackground(sunsetTimeString, timezoneOffset) {
+    const currentUTC = new Date();
+    const cityTime = new Date(currentUTC.getTime() + timezoneOffset * 60 * 60 * 1000);
 
     const [sunsetHour, sunsetMinute] = sunsetTimeString.split(':').map(Number);
-    const sunsetTime = new Date(currentTime);
+    const sunsetTime = new Date(cityTime);
     sunsetTime.setHours(sunsetHour, sunsetMinute, 0);
 
-    console.log('Current Time', currentTime);
+    console.log('Current time in searched city', cityTime);
     console.log('Sunset Time', sunsetTime);
 
-    if (currentTime > sunsetTime) {
+    if (cityTime > sunsetTime) {
         document.body.style.backgroundImage = `url('${nightBackground}')`;
         console.log('Night Time');
     } else {
