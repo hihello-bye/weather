@@ -10,6 +10,7 @@ body {
     background-size: cover;
     background-position: center;
     color: white;
+    background-image: url('./img/rainbowSky.jpg');
 }
 
 h1 {
